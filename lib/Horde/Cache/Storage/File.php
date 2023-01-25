@@ -271,7 +271,11 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
                 $fp = fopen($filename, 'r');
                 while (!feof($fp) && ($data = fgets($fp))) {
                     $parts = explode("\t", trim($data), 2);
-                    $excepts[$parts[0]] = $parts[1];
+                    if (count($parts) < 2){
+                        $excepts[$parts[0]] = null;
+                    } else {
+                        $excepts[$parts[0]] = $parts[1];
+                    }
                 }
             }
 
